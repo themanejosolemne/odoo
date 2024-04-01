@@ -19,7 +19,7 @@ if [ -z $1 ]; then
 fi
 
 NGINX_CONFIG_DIR=/etc/nginx
-DOMAIN="$1"
+DOMAIN="odoo2.clouder.la"
 DB=$2
 
 SSL_DIR=$NGINX_CONFIG_DIR/ssl/$DOMAIN
