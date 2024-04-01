@@ -24,10 +24,10 @@ ADMIN_EMAIL="soporte@cloudpiles.com"
 #--------------------------------------------------
 echo -e "\n---- Update Server ----"
 # universe package is for Ubuntu 18.x
-sudo add-apt-repository universe
-# libpng12-0 dependency for wkhtmltopdf for older Ubuntu versions
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 40976EAF437D05B5
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32
+sudo add-apt-repository universe
+# libpng12-0 dependency for wkhtmltopdf for older Ubuntu versions
 sudo add-apt-repository "deb http://mirrors.kernel.org/ubuntu/ xenial main"
 sudo apt-get update
 sudo apt-get upgrade -y
@@ -47,6 +47,7 @@ server {
   server_name $WEBSITE_NAME;
 
   # Add Headers for odoo proxy mode
+  proxy_set_header Host $host;
   proxy_set_header X-Forwarded-Host \$host;
   proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
   proxy_set_header X-Forwarded-Proto \$scheme;
