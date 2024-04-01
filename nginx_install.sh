@@ -32,7 +32,7 @@ mkdir -p $SSL_DIR
 mkdir -p $NGINX_CONFIG_DIR/sites
 
 openssl ecparam -out $SSL_DIR/nginx.key -name prime256v1 -genkey
-openssl req -new -key $SSL_DIR/nginx.key -out $SSL_DIR/csr.pem -subj "/C=VN/ST=DONG BAC BO/L=HA NOI/O=ERPHanoi/OU=IT Department/CN=$DOMAIN"
+openssl req -new -key $SSL_DIR/nginx.key -out $SSL_DIR/csr.pem -subj "/C=ES/ST=BCN/L=ES/O=Odoo/OU=IT/CN=$DOMAIN"
 openssl req -x509 -nodes -days 1000 -key $SSL_DIR/nginx.key -in $SSL_DIR/csr.pem -out $SSL_DIR/nginx.pem 
 # openssl dhparam -out $SSL_DIR/dhparam.pem 4096 # This take long time
 
@@ -129,11 +129,11 @@ server {
     proxy_buffering off;
     location / {
         #try_files \$uri \$uri/ @proxy;
-        proxy_pass http://odoo9;
+        proxy_pass http://odoo2;
         proxy_redirect default;
     }
     location /longpolling {
-        proxy_pass http://odoo9-im;
+        proxy_pass http://odoo2-im;
     }
     
     # cache some static data in memory for 60mins.
@@ -143,12 +143,12 @@ server {
         proxy_buffering on;
         expires 864000;
         #try_files $uri $uri/ @proxy;
-        proxy_pass http://odoo9;
+        proxy_pass http://odoo2;
         #proxy_redirect default;
         #proxy_redirect off;
     }
     location @proxy {
-        proxy_pass http://odoo9;
+        proxy_pass http://odoo2;
         proxy_redirect default;
         #proxy_redirect off;
     }
